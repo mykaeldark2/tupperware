@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jogo Tupperware</title>
+	<style>
+		body {
+			background-color: #FFC845;
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+		h1 {
+			font-size: 36px;
+			color: #21449B;
+			margin-top: 50px;
+		}
+		h2 {
+			font-size: 24px;
+			color: #21449B;
+			margin-top: 20px;
+		}
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-top: 50px;
+		}
+		.card {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+			margin: 20px;
+			padding: 20px;
+			width: 200px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.card:hover {
+			transform: scale(1.05);
+			box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+		}
+	</style>
+</head>
+<body>
+	<h1>Jogo da Tupperware</h1>
+	<h2>Encontre os pares de produtos Tupperware</h2>
+	<div class="container">
+		<div class="card" data-pair="1">
+			<img src="https://via.placeholder.com/150x150.png?text=Produto+1" alt="Produto 1">
+		</div>
+		<div class="card" data-pair="2">
+			<img src="https://via.placeholder.com/150x150.png?text=Produto+2" alt="Produto 2">
+		</div>
+		<div class="card" data-pair="1">
+			<img src="https://via.placeholder.com/150x150.png?text=Produto+1" alt="Produto 1">
+		</div>
+		<div class="card" data-pair="2">
+			<img src="https://via.placeholder.com/150x150.png?text=Produto+2" alt="Produto 2">
+		</div>
+	</div>
+	<script>
+		const cards = document.querySelectorAll('.card');
+		let flippedCards = [];
+		let matchedPairs = [];
+
+		cards.forEach(card => card.addEventListener('click', flipCard));
+
+		function flipCard() {
+			if (flippedCards.length < 2 && !flippedCards.includes(this) && !matchedPairs.includes(this.dataset.pair)) {
+				this.classList.toggle('flipped');
+				flippedCards.push(this);
+				if (flippedCards.length === 2) {
+					setTimeout(checkMatch, 1000);
+				}
+			}
+		}
+
+		function checkMatch() {
+			if (flippedCards[0].dataset.pair === flippedCards[1].dataset.pair) {
+				matchedPairs.push(flippedCards[0].dataset.pair);
+				flippedCards.forEach(card => card.removeEventListener('click', flipCard));
+			} else {
+				flippedCards.forEach(card => card.classList.toggle('flipped'));
+			}
+			flippedCards = [];
+			if (matchedPairs.length === 2) {
+				alert('Parabéns! Você encontrou todos os pares de produtos Tupperware!');
+}
+}
+</script>
+
+</body>
+</html>
+```
